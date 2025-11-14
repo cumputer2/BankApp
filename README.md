@@ -1,5 +1,7 @@
 ## 프로젝트 구조
 
+hello world
+
 server : 백엔드
 
 - service : 메인 비즈니스 로직
