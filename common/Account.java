@@ -1,4 +1,4 @@
-public class Account {
+public abstract class Account {
     protected String owner;
     protected int accountNumber;
     protected int totalBalance;
@@ -14,10 +14,32 @@ public class Account {
     }
 
     // 입금
-    public void deposit(){
+    public void deposit(int amount) {
+        if (amount <= 0) {
+            System.out.println("입금 실패: 입금액은 0원보다 커야 합니다.");
+            return;
+        }
+        this.totalBalance += amount;
+        this.availableBalance += amount;
+        System.out.println(amount + "원이 입금되었습니다.");
+        System.out.println("현재 총잔액은 " + this.totalBalance + "원입니다. 인출가능잔액은 " + this.availableBalance + "원입니다.");
     }
     // 출금
-    public void withdraw(){
+    public void withdraw(int amount){
+        if (amount <= 0) {
+            System.out.println("출금 실패: 출금액은 0원보다 커야 합니다.");
+            return;
+        }
+        if (amount > this.availableBalance) {
+            System.out.println("출금 실패: 잔액 부족 (출금 요청액이 인출 가능 잔액보다 큽니다.)");
+            return;
+        }
+
+        this.totalBalance -= amount;
+        this.availableBalance -= amount;
+
+        System.out.println(amount + "원이 출금되었습니다.");
+        System.out.println("현재 총잔액은 " + this.totalBalance + "원입니다. 인출가능잔액은 " + this.availableBalance + "원입니다.");
     }
 
 
@@ -52,6 +74,6 @@ public class Account {
         this.availableBalance = availableBalance;
     }
     public void setOpenDate(int openDate){
-        this.openData = openData;
+        this.openDate = openDate;
     }
 }
